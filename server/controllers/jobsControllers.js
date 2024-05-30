@@ -2,6 +2,19 @@ const Jobs = require('../models/jobsModel')
 const cloudinary = require('../services/cloudinary')
 const { postJobValidator } = require('../validator/job/jobValidator')
 
+// GET JOBS
+const fetchJobs = async (req, res) => {
+    try {
+        const jobs = await Jobs.find()
+        if (!jobs) return res.status(400).json({ message: 'No job available' })
+
+        res.status(200).json({ message: jobs })
+    } catch (e) {
+        throw new Error(e)
+    }
+}
+
+// POST JOB
 const postJob = async (req, res) => {
     try {
         const { error } = postJobValidator.validate(req.body)
@@ -13,7 +26,6 @@ const postJob = async (req, res) => {
         const { path } = file
         let result = await cloudinary.uploader.upload(path)
 
-        console.log(result)
         if (!result)
             return res.status(400).json({ error: 'Upload was not successful' })
 
@@ -41,4 +53,4 @@ const postJob = async (req, res) => {
     }
 }
 
-module.exports = { postJob }
+module.exports = { fetchJobs, postJob }
