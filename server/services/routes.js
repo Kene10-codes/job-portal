@@ -25,5 +25,5 @@ module.exports = function (app) {
     app.use(express.urlencoded({ extended: true }))
 
     // JOB ROUTE
-    app.use('/api', jobRoutes)
+    app.use('/api/user', jobRoutes)
 }
