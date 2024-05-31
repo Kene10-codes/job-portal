@@ -1,14 +1,16 @@
 const cors = require('cors')
+const helmet = require('helmet')
 const express = require('express')
 const passport = require('passport')
-const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const cookieParser = require('cookie-parser')
 const jobRoutes = require('../routes/jobRoutes')
 
 module.exports = function (app) {
+    app.use(helmet())
     app.use(
         cors({
-            origin: ['http://localhost:3000', 'http://localhost:8080'],
+            origin: ['http://localhost:5173'],
         })
     )
     app.use(

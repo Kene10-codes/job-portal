@@ -30,9 +30,12 @@ const Navbar = () => {
                 </NavLink>
 
                 {/* NAV ITEMS */}
-                <ul className="hidden md:flex gap-12">
+                <ul className="hidden md:flex lg:gap-8 md:gap-4">
                     {navItems.map(({ path, title }) => (
-                        <li key={path} className="text-base text-black">
+                        <li
+                            key={path}
+                            className="lg:text-base md:text-sm text-black"
+                        >
                             {' '}
                             <NavLink
                                 to={path}
@@ -47,7 +50,7 @@ const Navbar = () => {
                 </ul>
 
                 {/* REGISTER AND LOGIN */}
-                <div className="text-base text-primary font-medium space-x-5 hidden lg:block">
+                <div className="text-base text-primary font-medium space-x-5 hidden md:block">
                     <Link to={'/login'} className="py-2 px-5 rounded border">
                         Login
                     </Link>
