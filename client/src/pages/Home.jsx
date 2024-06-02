@@ -6,7 +6,7 @@ import Card from '../components/Card'
 import Jobs from './Jobs'
 
 const Home = () => {
-    const [selectedCategory, setSelectedCategory] = useState(null)
+    const [selectedCategory, setSelectedCategory] = useState('')
     const [jobs, setJob] = useState([])
     const [query, setQuery] = useState('')
 
@@ -16,6 +16,11 @@ const Home = () => {
             .then((response) => response.json())
             .then((data) => setJob(data.message))
     }, [])
+
+    // HANDLE INPUT CHANGE FUNC
+    const handleInputChange = (e) => {
+        setQuery(e.target.value)
+    }
 
     // FLTERED ITEMS
     const filteredItems = jobs.filter(
@@ -57,8 +62,6 @@ const Home = () => {
                     employmentType.toLowerCase() === selected.toLowerCase() ||
                     experienceLevel.toLowerCase() === selected.toLowerCase()
             )
-
-            console.log(filteredJobs)
         }
 
         return filteredJobs.map((data, index) => (
@@ -66,19 +69,26 @@ const Home = () => {
         ))
     }
 
-    // HANDLE INPUT CHANGE FUNC
-    const handleInputChange = (e) => {
-        setQuery(e.target.value)
-    }
-
-    const result = filteredData(jobs, selectedCategory, query)
+    let result = filteredData(jobs, selectedCategory, query)
 
     return (
         <div>
             <Navbar />
-            <Banner query={query} handleInputChange={handleInputChange} />
-            <div>
-                <Jobs result={result} />
+            <Banner
+                query={query}
+                handleInputChange={handleInputChange}
+                handleChange={handleChange}
+                selectedCategory={selectedCategory}
+            />
+            <div className="bg-[#FAFAFA] md:grid grid-cols-4 gap-8 lg:px-24 px-4 py-12">
+                <div className="bg-white p-4 rounded">Left</div>
+                <div className="col-span-2 bg-white p-4 rounded-sm">
+                    {' '}
+                    {result.map(({ props: { data } }, index) => (
+                        <Jobs result={data} key={index} />
+                    ))}
+                </div>
+                <div className="bg-white p-4 rounded">Right</div>
             </div>
         </div>
     )
