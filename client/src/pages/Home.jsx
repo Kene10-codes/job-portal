@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import { BASE_URL } from '../constants/constants'
 import Card from '../components/Card'
 import Jobs from './Jobs'
+import Sidebar from '../sidebar/Sidebar'
 
 const Home = () => {
     const [selectedCategory, setSelectedCategory] = useState('')
@@ -64,9 +65,11 @@ const Home = () => {
             )
         }
 
-        return filteredJobs.map((data, index) => (
+        filteredJobs = filteredJobs.map((data, index) => (
             <Card key={index} data={data} />
         ))
+
+        return filteredJobs
     }
 
     let result = filteredData(jobs, selectedCategory, query)
@@ -81,7 +84,9 @@ const Home = () => {
                 selectedCategory={selectedCategory}
             />
             <div className="bg-[#FAFAFA] md:grid grid-cols-4 gap-8 lg:px-24 px-4 py-12">
-                <div className="bg-white p-4 rounded">Left</div>
+                <div className="bg-white p-4 rounded">
+                    <Sidebar />
+                </div>
                 <div className="col-span-2 bg-white p-4 rounded-sm">
                     {' '}
                     {result.map(({ props: { data } }, index) => (

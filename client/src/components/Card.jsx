@@ -1,8 +1,53 @@
+import { FiCalendar, FiClock, FiDollarSign, FiMapPin } from 'react-icons/fi'
+
 const Card = ({ data }) => {
+    const {
+        jobTitle,
+        companyLogo,
+        companyName,
+        description,
+        employmentType,
+        experienceLevel,
+        jobLocation,
+        maxPrice,
+        minPrice,
+        postingDate,
+        salaryType,
+    } = data
     return (
-        <div>
-            <h2>Hello Card</h2>
-        </div>
+        <section className="card">
+            <Link
+                to="/"
+                className="flex gap-4 flex-col sm:flex-row items-start"
+            >
+                <img src={companyLogo} alt="" />
+                <div>
+                    <h4 className="text-primary mb-1">{companyName}</h4>
+                    <h3 className="text-lg font-semibold mb-2">{jobTitle}</h3>
+
+                    <div className="text-primary/70 text-base flex-wrap gap-2 mb-2">
+                        <span className="flex items-center gap-2">
+                            <FiMapPin /> {jobLocation}
+                        </span>
+                    </div>
+                    <div className="text-primary/70 text-base flex-wrap gap-2 mb-2">
+                        <span className="flex items-center gap-2">
+                            <FiClock /> {employmentType}
+                        </span>
+                    </div>
+                    <div className="text-primary/70 text-base flex-wrap gap-2 mb-2">
+                        <span className="flex items-center gap-2">
+                            <FiDollarSign /> {minPrice} - {maxPrice}
+                        </span>
+                    </div>
+                    <div className="text-primary/70 text-base flex-wrap gap-2 mb-2">
+                        <span className="flex items-center gap-2">
+                            <FiCalendar /> {postingDate}
+                        </span>
+                    </div>
+                </div>
+            </Link>
+        </section>
     )
 }
 
