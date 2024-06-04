@@ -18,7 +18,7 @@ module.exports = function (app) {
         ],
     }
     app.use(helmet())
-    app.use(corsOptions)
+    app.use(cors(corsOptions))
     app.use(
         session({
             resave: false,
