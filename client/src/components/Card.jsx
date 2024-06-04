@@ -14,6 +14,7 @@ const Card = ({ data }) => {
         postingDate,
         salaryType,
     } = data
+
     return (
         <section className="card">
             <Link
@@ -21,7 +22,7 @@ const Card = ({ data }) => {
                 className="flex gap-4 flex-col sm:flex-row items-start"
             >
                 <img src={companyLogo} alt="" />
-                <div>
+                <div className="text-primary/70 text-base flex flex-wrap gap-2 mb-2">
                     <h4 className="text-primary mb-1">{companyName}</h4>
                     <h3 className="text-lg font-semibold mb-2">{jobTitle}</h3>
 
@@ -29,18 +30,15 @@ const Card = ({ data }) => {
                         <span className="flex items-center gap-2">
                             <FiMapPin /> {jobLocation}
                         </span>
-                    </div>
-                    <div className="text-primary/70 text-base flex-wrap gap-2 mb-2">
+
                         <span className="flex items-center gap-2">
                             <FiClock /> {employmentType}
                         </span>
-                    </div>
-                    <div className="text-primary/70 text-base flex-wrap gap-2 mb-2">
+
                         <span className="flex items-center gap-2">
                             <FiDollarSign /> {minPrice} - {maxPrice}
                         </span>
-                    </div>
-                    <div className="text-primary/70 text-base flex-wrap gap-2 mb-2">
+
                         <span className="flex items-center gap-2">
                             <FiCalendar /> {postingDate}
                         </span>

@@ -1,9 +1,11 @@
 import React from 'react'
+import Location from './Location'
 
-const Sidebar = () => {
+const Sidebar = ({ handleChange, handleClick }) => {
     return (
-        <div>
-            <h2>Sidebar</h2>
+        <div className="space-y-5">
+            <h3 className="text-lg  font-bold mb-3">Filters</h3>
+            <Location handleChange={handleChange} />
         </div>
     )
 }
