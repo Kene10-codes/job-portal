@@ -107,7 +107,6 @@ const Home = () => {
     }
 
     let result = filteredData(jobs, selectedCategory, query)
-    console.log(result)
 
     return (
         <div>
@@ -151,8 +150,8 @@ const Home = () => {
                             >
                                 Prev
                             </button>
-                            <span>
-                                {currentPage} of{' '}
+                            <span className="mx-2">
+                                Page {currentPage} of{' '}
                                 {Math.ceil(filteredItems.length / itemsPerPage)}
                             </span>
                             <button
