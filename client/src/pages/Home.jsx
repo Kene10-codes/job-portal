@@ -5,6 +5,7 @@ import { BASE_URL } from '../constants/constants'
 import Card from '../components/Card'
 import Jobs from './Jobs'
 import Sidebar from '../sidebar/Sidebar'
+import Newsletter from '../components/Newsletter'
 
 const Home = () => {
     const [selectedCategory, setSelectedCategory] = useState('')
@@ -89,6 +90,7 @@ const Home = () => {
                 }) =>
                     parseInt(maxPrice) <= parseInt(selected) ||
                     parseInt(minPrice) >= parseInt(selected) ||
+                    postingDate >= selected ||
                     salaryType.toLowerCase() === selected.toLowerCase() ||
                     jobLocation.toLowerCase() === selected.toLowerCase() ||
                     employmentType.toLowerCase() === selected.toLowerCase() ||
@@ -171,7 +173,9 @@ const Home = () => {
                         ''
                     )}
                 </div>
-                <div className="bg-white p-4 rounded">Right</div>
+                <div className="bg-white p-4 rounded">
+                    <Newsletter />
+                </div>
             </div>
         </div>
     )
