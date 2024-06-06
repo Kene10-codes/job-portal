@@ -20,6 +20,7 @@ const Location = ({ handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="London"
                     value="london"
@@ -27,6 +28,7 @@ const Location = ({ handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="Seattle"
                     value="seattle"
@@ -34,6 +36,7 @@ const Location = ({ handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="London"
                     value="london"
@@ -41,6 +44,7 @@ const Location = ({ handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="Madrid"
                     value="madrid"
@@ -48,6 +52,7 @@ const Location = ({ handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="Boston"
                     value="boston"

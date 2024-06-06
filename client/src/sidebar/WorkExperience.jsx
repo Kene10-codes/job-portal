@@ -19,6 +19,7 @@ const WorkExperience = ({ handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="Internship"
                     value={'Internship'}
@@ -33,6 +34,7 @@ const WorkExperience = ({ handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="< 80,000k"
                     value={80}
@@ -40,6 +42,7 @@ const WorkExperience = ({ handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="< 100,000k"
                     value={100}

@@ -11,10 +11,8 @@ const Navbar = () => {
     }
 
     const navItems = [
-        { path: '/start-search', title: 'Start a Search' },
-        { path: '/my-job', title: 'My Jobs' },
-        { path: '/salary', title: 'Salary Estimate' },
-        { path: '/post-job', title: 'Post a Job' },
+        { path: 'my-job', title: 'My Jobs' },
+        { path: 'post-job', title: 'Post a Job' },
         { path: '/about-us', title: 'About' },
         { path: '/contact-us', title: 'Contact' },
     ]
@@ -100,7 +98,7 @@ const Navbar = () => {
                     <li className="my-3">
                         {' '}
                         <Link
-                            to={'/login'}
+                            to={'login'}
                             className="py-2 px-5 rounded font-semibold text-red-500 border bg-white border-red-500"
                         >
                             Login

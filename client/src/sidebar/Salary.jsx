@@ -35,6 +35,7 @@ const Salary = ({ handleClick, handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="< 30,000k"
                     value={30}
@@ -42,6 +43,7 @@ const Salary = ({ handleClick, handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="< 50,000k"
                     value={50}
@@ -49,6 +51,7 @@ const Salary = ({ handleClick, handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="< 80,000k"
                     value={80}
@@ -56,6 +59,7 @@ const Salary = ({ handleClick, handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="< 100,000k"
                     value={100}

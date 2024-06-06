@@ -19,6 +19,7 @@ const EmployementType = ({ handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="Full-time"
                     value={'full-time'}
@@ -26,6 +27,7 @@ const EmployementType = ({ handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="Permanent"
                     value={'Permanent'}
@@ -33,6 +35,7 @@ const EmployementType = ({ handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="Part-time"
                     value={'part-time'}

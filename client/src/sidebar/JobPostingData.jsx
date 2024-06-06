@@ -32,6 +32,7 @@ const JobPostingData = ({ handleClick, handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="24 Hours Ago"
                     value={TwentFoursHoursAgo}
@@ -39,6 +40,7 @@ const JobPostingData = ({ handleClick, handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="7 Days Ago"
                     value={SevenDaysAgo}
@@ -46,6 +48,7 @@ const JobPostingData = ({ handleClick, handleChange }) => {
 
                 <InputField
                     handleChange={handleChange}
+                    type="radio"
                     name="location"
                     title="30 Days Ago"
                     value={ThirtyDaysAgo}

@@ -1,8 +1,8 @@
-const InputField = ({ name, value, title, handleChange }) => {
+const InputField = ({ name, type, value, title, handleChange }) => {
     return (
         <label className="sidebar-label-container">
             <input
-                type="radio"
+                type={type}
                 onChange={handleChange}
                 value={value}
                 name={name}
