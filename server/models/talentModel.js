@@ -1,4 +1,4 @@
-const mongoose = require('express')
+const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const talentSchema = new Schema({
@@ -15,6 +15,12 @@ const talentSchema = new Schema({
     gender: {
         type: String,
         trim: true,
+        required: true,
+    },
+    password: {
+        type: String,
+        trim: true,
+        minlength: 6,
         required: true,
     },
     email: {

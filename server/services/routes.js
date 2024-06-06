@@ -5,6 +5,7 @@ const passport = require('passport')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const jobRoutes = require('../routes/jobRoutes')
+const talentRoutes = require('../routes/talentRoutes')
 
 module.exports = function (app) {
     const corsOptions = {
@@ -33,5 +34,8 @@ module.exports = function (app) {
     app.use(express.urlencoded({ extended: true }))
 
     // JOB ROUTE
-    app.use('/api/user', jobRoutes)
+    app.use('/api/client', jobRoutes)
+
+    // TALENT ROUTE
+    app.use('/api/talent', talentRoutes)
 }

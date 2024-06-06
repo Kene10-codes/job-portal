@@ -18,7 +18,7 @@ const Home = () => {
     // FETCH JOBS
     useEffect(() => {
         setIsLoading(true)
-        fetch(`${BASE_URL}/api/user`)
+        fetch(`${BASE_URL}/api/client`)
             .then((response) => response.json())
             .then((data) => {
                 setJob(data.message)
