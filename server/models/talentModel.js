@@ -1,13 +1,18 @@
 const mongoose = require('express')
 const Schema = mongoose.Schema
 
-const userSchema = new Schema({
+const talentSchema = new Schema({
     firstName: {
         type: String,
         trim: true,
         required: true,
     },
     lastName: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    gender: {
         type: String,
         trim: true,
         required: true,
@@ -22,8 +27,18 @@ const userSchema = new Schema({
         unique: true,
         required: true,
     },
+    country: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    stateOfResidence: {
+        type: String,
+        trim: true,
+        required: true,
+    },
 })
 
-const User = mongoose.model('User', userSchema)
+const Talent = mongoose.model('Talent', talentSchema)
 
-module.exports = User
+module.exports = Talent
