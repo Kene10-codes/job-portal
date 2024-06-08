@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 const Schema = mongoose.Schema
 
 const talentSchema = new Schema({
@@ -45,6 +46,13 @@ const talentSchema = new Schema({
     },
 })
 
-const Talent = mongoose.model('Talent', talentSchema)
+// GENERATE A TOKEN
+talentSchema.methods.generateToken = async () => {
+    return jwt.sign({ id: this._id }, process.env.JWT_PRIVATE_KEY, {
+        expiresIn: '1d',
+    })
+}
+
+const Talent = mongoose.model('talent', talentSchema)
 
 module.exports = Talent

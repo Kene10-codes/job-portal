@@ -32,7 +32,14 @@ const registerController = async (req, res) => {
 
     // SAVE TO DB
     await talent.save()
-    res.status(201).json({ message: talent })
+    const token = talent.generateToken()
+    res.cookie('token', token, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        secure: true,
+    })
+        .status(201)
+        .json({ message: 'Talent profile successfully created' })
 }
 
 module.exports = { registerController }
