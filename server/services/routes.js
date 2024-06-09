@@ -9,7 +9,10 @@ const talentRoutes = require('../routes/talentRoutes')
 
 module.exports = function (app) {
     const corsOptions = {
-        origin: 'http://localhost:5173',
+        origin: [
+            'http://localhost:5173',
+            'https://job-portal-r4cl.onrender.com',
+        ],
         credentials: true,
         methods: ['GET, POST', 'PUT', 'DELETE', 'PATCH'],
         allowHeaders: [
