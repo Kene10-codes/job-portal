@@ -2,6 +2,7 @@ const bcryptjs = require('bcryptjs')
 const Talent = require('../models/talentModel')
 const {
     registerTalentValidator,
+    loginTalentValidator,
 } = require('../validator/talent/talent.Validator')
 
 // REGISTER TALENT CONTROLLER
@@ -42,4 +43,38 @@ const registerController = async (req, res) => {
         .json({ message: 'Talent profile successfully created' })
 }
 
-module.exports = { registerController }
+const loginController = async (req, res) => {
+    try {
+        const { error } = loginTalentValidator.validate(req.body)
+        // CHECK ERROR
+        if (error)
+            return res.status(400).json({ error: error.details[0].message })
+
+        // CHECK IF EMAIL
+        const user = await Talent.findOne({ email: req.body.email })
+
+        if (!user)
+            return res
+                .status(400)
+                .json({ error: 'Email/password is incorrect' })
+
+        const confirmPassword = bcryptjs.compare(
+            req.body.password,
+            user.password
+        )
+
+        if (!confirmPassword)
+            return res
+                .status(400)
+                .json({ error: 'Email/Password is incorrect' })
+
+        const token = user.generateToken()
+        res.cookie('token', token)
+            .status(200)
+            .json({ messaage: 'Talent logged in successfully' })
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+module.exports = { registerController, loginController }
