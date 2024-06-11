@@ -4,6 +4,7 @@ const {
     registerTalentValidator,
     loginTalentValidator,
 } = require('../validator/talent/talent.Validator')
+const { sendEmail } = require('../services/email')
 
 // REGISTER TALENT CONTROLLER
 const registerController = async (req, res) => {
@@ -33,16 +34,37 @@ const registerController = async (req, res) => {
 
     // SAVE TO DB
     await talent.save()
+
+    // SEND EMAIL
+    sendEmail(
+        talent,
+        'Account created successfully - Verify Email',
+        '',
+        `<div
+    class="container"
+    style="max-width: 90%; margin: auto; padding-top: 20px"
+  >
+    <h2>Welcome onboard</h2>
+    <h4>You are officially In ✔</h4>
+    <p style="margin-bottom: 30px;">Pleas enter the sign up OTP to get started</p>
+    <h1 style="font-size: 40px; letter-spacing: 2px; text-align:center;">${talent.otp}</h1>
+</div>`
+    )
+
+    // GENERATE TOKEN
     const token = talent.generateToken()
-    res.cookie('token', token, {
+
+    res.cookie('token', talent.email, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         secure: true,
     })
+        .header('x-auth-token', token)
         .status(201)
         .json({ message: 'Talent profile successfully created' })
 }
 
+// LOGIN CONTROLLER
 const loginController = async (req, res) => {
     try {
         const { error } = loginTalentValidator.validate(req.body)
