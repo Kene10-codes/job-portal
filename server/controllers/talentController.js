@@ -59,9 +59,34 @@ const registerController = async (req, res) => {
         httpOnly: true,
         secure: true,
     })
-        .header('x-auth-token', token)
+    res.header('x-auth-token', token)
         .status(201)
-        .json({ message: 'Talent profile successfully created' })
+        .json({ success: true, message: 'Talent profile successfully created' })
+}
+
+// VALIDATE USER REGISTER
+const validateUserRegister = async (req, res) => {
+    try {
+        const { otp } = req.body
+        const email = req.cookies.token
+        const user = await Talent.findOne({ email })
+
+        if (!user)
+            return res
+                .status(400)
+                .json({ success: false, message: 'User does not exist' })
+
+        if (user && user.otp !== otp)
+            return res
+                .status(400)
+                .json({ success: false, message: 'Incorrect OTP' })
+
+        // UPDATE ACTIVE STATE
+
+        // res.status(200).json({ message: 'User successfully verified' })
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 // LOGIN CONTROLLER
@@ -70,15 +95,18 @@ const loginController = async (req, res) => {
         const { error } = loginTalentValidator.validate(req.body)
         // CHECK ERROR
         if (error)
-            return res.status(400).json({ error: error.details[0].message })
+            return res
+                .status(400)
+                .json({ success: false, message: error.details[0].message })
 
         // CHECK IF EMAIL
         const user = await Talent.findOne({ email: req.body.email })
 
         if (!user)
-            return res
-                .status(400)
-                .json({ error: 'Email/password is incorrect' })
+            return res.status(400).json({
+                success: false,
+                message: 'Email/password is incorrect',
+            })
 
         const confirmPassword = bcryptjs.compare(
             req.body.password,
@@ -86,14 +114,15 @@ const loginController = async (req, res) => {
         )
 
         if (!confirmPassword)
-            return res
-                .status(400)
-                .json({ error: 'Email/Password is incorrect' })
+            return res.status(400).json({
+                success: false,
+                message: 'Email/Password is incorrect',
+            })
 
         const token = user.generateToken()
         res.cookie('token', token)
             .status(200)
-            .json({ messaage: 'Talent logged in successfully' })
+            .json({ success: true, messaage: 'Talent logged in successfully' })
     } catch (e) {
         console.log(e)
     }
