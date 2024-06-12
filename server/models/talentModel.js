@@ -44,6 +44,18 @@ const talentSchema = new Schema({
         trim: true,
         required: true,
     },
+    lastActive: {
+        type: String,
+        required: false,
+    },
+    otp: {
+        type: String,
+        required: true,
+    },
+    active: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 // GENERATE A TOKEN
