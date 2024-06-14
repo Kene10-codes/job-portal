@@ -17,4 +17,12 @@ const loginTalentValidator = Joi.object({
     password: Joi.string().min(6).required(),
 })
 
-module.exports = { registerTalentValidator, loginTalentValidator }
+const resetPasswordValidator = Joi.object({
+    email: Joi.string().max(255).email().required(),
+})
+
+module.exports = {
+    registerTalentValidator,
+    loginTalentValidator,
+    resetPasswordValidator,
+}

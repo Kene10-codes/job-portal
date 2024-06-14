@@ -1,11 +1,14 @@
 const bcryptjs = require('bcryptjs')
+const crypto = require('crypto')
 const Talent = require('../models/talentModel')
 const {
     registerTalentValidator,
     loginTalentValidator,
+    resetPasswordValidator,
 } = require('../validator/talent/talent.Validator')
 const { sendEmail } = require('../services/email')
 const { generateOTP } = require('../services/otp')
+const { Token } = require('../models/token')
 
 // REGISTER TALENT CONTROLLER
 const registerController = async (req, res) => {
@@ -152,4 +155,53 @@ const loginController = async (req, res) => {
     }
 }
 
-module.exports = { registerController, loginController, validateTalentRegister }
+// RESET PASSWORD CONTROLLER
+const resetPasswordController = async (req, res) => {
+    const { error } = resetPasswordValidator.validate(req.body)
+    if (error)
+        return res
+            .status(400)
+            .json({ success: false, message: 'Invalid email' })
+
+    // CHECK EMAIL
+    const talent = await Talent.findOne({ email: req.body.email })
+
+    if (!talent)
+        return res
+            .status(400)
+            .json({ success: false, message: 'Talent email does not exist!' })
+
+    // CHECK IF TOKEN EXISTS ALREADY
+    let token = await Token.findOne({ talentId: talent._id })
+    if (!token) {
+        token = new Token({
+            talentId: talent._id,
+            token: crypto.randomBytes(32).toString('hex'),
+        }).save()
+    }
+
+    const link = `${process.env.BASE_URL}/password-reset/${talent._id}/${token.token}`
+
+    sendEmail(
+        talent,
+        'Reset Password',
+        '',
+        `<div
+class="container"
+style="max-width: 90%; margin: auto; padding-top: 20px"
+>
+<h2>Dear,</h2>x
+<p style="font-size: 40px; letter-spacing: 2px; text-align:center;">Click the link to reset your password. ${link} </p>
+
+</div>`
+    )
+
+    res.status(200).json({ success: true, message: 'Password reset initated' })
+}
+
+module.exports = {
+    registerController,
+    loginController,
+    validateTalentRegister,
+    resetPasswordController,
+}
