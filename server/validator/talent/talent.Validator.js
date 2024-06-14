@@ -21,8 +21,12 @@ const resetPasswordValidator = Joi.object({
     email: Joi.string().max(255).email().required(),
 })
 
+const validateNewPassword = Joi.object({
+    password: Joi.string().min(6).required(),
+})
 module.exports = {
     registerTalentValidator,
     loginTalentValidator,
     resetPasswordValidator,
+    validateNewPassword,
 }

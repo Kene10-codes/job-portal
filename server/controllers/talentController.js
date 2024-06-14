@@ -5,6 +5,7 @@ const {
     registerTalentValidator,
     loginTalentValidator,
     resetPasswordValidator,
+    validateNewPassword,
 } = require('../validator/talent/talent.Validator')
 const { sendEmail } = require('../services/email')
 const { generateOTP } = require('../services/otp')
@@ -25,7 +26,7 @@ const registerController = async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         gender: req.body.gender,
-        password: req.body.password,
+        password: req.password,
         email: req.body.email,
         phoneNumber: req.body.phoneNumber,
         country: req.body.country,
@@ -180,7 +181,7 @@ const resetPasswordController = async (req, res) => {
         }).save()
     }
 
-    const link = `${process.env.BASE_URL}/password-reset/${talent._id}/${token.token}`
+    const link = `${process.env.BASE_URL}/talent/password-reset/${talent._id}/${token.token}`
 
     sendEmail(
         talent,
@@ -199,9 +200,57 @@ style="max-width: 90%; margin: auto; padding-top: 20px"
     res.status(200).json({ success: true, message: 'Password reset initated' })
 }
 
+// ADD NEW PASSWORD
+const addNewPasswordController = async (req, res) => {
+    const { error } = validateNewPassword.validate(req.body)
+    if (error)
+        return res
+            .status(400)
+            .json({ success: false, message: 'Invalid Password' })
+
+    const talent = await Talent.findById(req.params.talentId)
+
+    if (!talent)
+        return res
+            .status(401)
+            .json({ success: false, message: 'Incorrect Talent ID' })
+
+    const token = await Token.findOne({
+        talentId: talent._id,
+        token: req.params.token,
+    })
+
+    if (!token)
+        return res
+            .status(401)
+            .json({ success: false, message: 'Incorrect Token' })
+
+    // UPDATE NEW PASSWORD
+    talent.password = req.body.password
+    await talent.save()
+    await Token.findByIdAndDelete({ _id: token._id })
+
+    // SEND EMAIL
+    sendEmail(
+        talent,
+        'Password was successfully changed',
+        '',
+        `<p>Dear ${talent.firstName},</p>
+        <p>You have successfully changed your password</p>
+
+
+       Once again, welcome aboard, and thank you for joining us! </p>
+       
+       <p>Best regards,</p>
+       <span>Kenechukwu </span>
+       <span>CEO</span>`
+    )
+    res.status(200).json({ message: 'Password reset was successful' })
+}
 module.exports = {
     registerController,
     loginController,
     validateTalentRegister,
     resetPasswordController,
+    addNewPasswordController,
 }
