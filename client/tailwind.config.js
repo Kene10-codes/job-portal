@@ -6,6 +6,9 @@ export default {
             colors: {
                 primary: 'red',
             },
+            width: {
+                form: '600',
+            },
         },
     },
     plugins: [],

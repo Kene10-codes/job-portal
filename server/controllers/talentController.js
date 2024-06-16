@@ -191,7 +191,7 @@ const resetPasswordController = async (req, res) => {
 class="container"
 style="max-width: 90%; margin: auto; padding-top: 20px"
 >
-<h2>Dear,</h2>x
+<h2>Dear,</h2>
 <p style="font-size: 40px; letter-spacing: 2px; text-align:center;">Click the link to reset your password. ${link} </p>
 
 </div>`
