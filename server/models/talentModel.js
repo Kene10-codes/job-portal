@@ -39,7 +39,7 @@ const talentSchema = new Schema({
         trim: true,
         required: true,
     },
-    stateOfResidence: {
+    state: {
         type: String,
         trim: true,
         required: true,

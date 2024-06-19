@@ -30,7 +30,7 @@ const registerController = async (req, res) => {
         email: req.body.email,
         phoneNumber: req.body.phoneNumber,
         country: req.body.country,
-        stateOfResidence: req.body.stateOfResidence,
+        state: req.body.state,
     })
 
     // CHECK USER PASSWORD
