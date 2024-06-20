@@ -8,7 +8,6 @@ const initialState = {
     gender: '',
     password: '',
     confirmPassword: '',
-    phoneNumber: '',
     country: '',
     state: '',
 }
@@ -16,6 +15,8 @@ const Register = () => {
     const [values, setValues] = useState(initialState)
     const [countries, setCountries] = useState([])
     const [err, setErrMsg] = useState('')
+
+    console.log(values)
 
     // GET ALL COUNTRIES
     useEffect(() => {
@@ -27,19 +28,12 @@ const Register = () => {
             .catch((e) => setErrMsg(e))
     }, [])
 
-    // CITY
-    countries.map(({ cities }) => {
-        cities.map((city) => {
-            console.log(city)
-        })
-    })
-
     // HANDLE INPUT CHANGE
     const handleInputChange = (e) => {
         const { value, name } = e.target
         // SET VALUES
         setValues({
-            ...state,
+            ...values,
             [name]: value,
         })
     }
@@ -52,24 +46,25 @@ const Register = () => {
             return
         }
 
+        const data = {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            gender: values.gender,
+            password: values.password,
+            country: values.country,
+            state: values.state,
+        }
+
         fetch(`${BASE_URL}/api/talent/register`, {
             method: 'POST',
-            body: JSON.stringify({
-                firstName: values.firstName,
-                lastName: values.lastName,
-                email: values.email,
-                gender: values.gender,
-                password: values.password,
-                phoneNumber: values.phoneNumber,
-                country: values.country,
-                state: values.state,
-            }),
             headers: {
-                'Content-type': 'application/json; charset=UTF-8',
+                'Content-type': 'application/json;',
+                // 'Access-Control-Allow-Origin': '*',
             },
-        })
-            .then((response) => response.json())
-            .then((data) => console.log(data))
+            body: JSON.stringify(data),
+        }).then((response) => response.json())
+        // .then((data) => console.log(data))
 
         setErrMsg('')
     }
@@ -79,7 +74,7 @@ const Register = () => {
             <div className="flex justify-center items-center pt-10">
                 <form method="post" className="w-form  p-5 bg-white">
                     <h2 className="font-semibold uppercase text-xl py-5 text-center text-red-500">
-                        Talent Registration
+                        Registration
                     </h2>
                     <div className="flex flex-col my-2">
                         {' '}
@@ -93,7 +88,6 @@ const Register = () => {
                             type="text"
                             value={values.lastName}
                             onChange={handleInputChange}
-                            id="lastname"
                             name="lastName"
                             className="border w-96 outline-none pl-2 text-sm h-8"
                             required
@@ -111,7 +105,6 @@ const Register = () => {
                             type="text"
                             value={values.firstName}
                             onChange={handleInputChange}
-                            id="firstname"
                             name="firstName"
                             className="border w-96 outline-none pl-2 text-sm h-8"
                             required
@@ -194,6 +187,7 @@ const Register = () => {
                             value={values.gender}
                             className="border w-96 outline-none pl-2 text-sm h-8"
                         >
+                            <option value="gender">Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
@@ -214,11 +208,13 @@ const Register = () => {
                             className="border w-96 outline-none pl-2 text-sm h-8"
                         >
                             {countries?.map(({ country }) => (
-                                <option value={country}>{country}</option>
+                                <option key={country} value={country}>
+                                    {country}
+                                </option>
                             ))}
                         </select>
                     </div>
-                    <div className="flex flex-col my-2">
+                    {/* <div className="flex flex-col my-2">
                         {' '}
                         <label
                             htmlFor="state"
@@ -232,14 +228,33 @@ const Register = () => {
                             value={values.state}
                             className="border w-96 outline-none pl-2 text-sm h-8"
                         >
-                            {countries.map(({ country, cities }) => {
-                                if(country) {
-                                   country & cities.map((city) => (
-                                    <option value={city}>{city}</option>
+                            {countries?.map(({ cities }) =>
+                                cities?.map((state) => (
+                                    <option key={state} value={state}>
+                                        {state}
+                                    </option>
                                 ))
-                                }
-                            })}
-                        </select>
+                            )}
+                        </select> */}
+                    <div className="flex flex-col my-2">
+                        {' '}
+                        <label
+                            htmlFor="state"
+                            className="text-2 text-gray-600 pb-1 text-md"
+                        >
+                            State
+                        </label>
+                        <input
+                            type="text"
+                            value={values.state}
+                            onChange={handleInputChange}
+                            id="state"
+                            name="state"
+                            className="border w-96 outline-none pl-2 text-sm h-8"
+                            required
+                        />
+                    </div>
+                    <div className="flex flex-col my-2">
                         <input
                             type="submit"
                             value={'Register'}

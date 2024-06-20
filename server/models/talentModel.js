@@ -29,11 +29,6 @@ const talentSchema = new Schema({
         unique: true,
         required: true,
     },
-    phoneNumber: {
-        type: String,
-        unique: true,
-        required: true,
-    },
     country: {
         type: String,
         trim: true,
